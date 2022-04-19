@@ -41,7 +41,7 @@ const Users = ({ users: allUsers, ...rest }) => {
         : allUsers;
 
     const count = filteredUsers.length;
-    const sortedUsers = _.orderBy(filteredUsers, [sortBy.iter], [sortBy.order]);
+    const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
     const userCrop = paginate(sortedUsers, currentPage, pageSize);
 
     const clearFilter = () => {
@@ -72,7 +72,7 @@ const Users = ({ users: allUsers, ...rest }) => {
                         users={userCrop}
                         {...rest}
                         onSort={handleSort}
-                        curentSort={sortBy}
+                        selectedSort={sortBy}
                     />
                 )}
                 <div className="d-flex justify-content-center">
