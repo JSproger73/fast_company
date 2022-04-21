@@ -13,7 +13,7 @@ const Users = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
     const [selectedProf, setSelectedProf] = useState();
-    const [sortBy, setSortBy] = useState({ iter: "name", order: "asc" });
+    const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
     const pageSize = 8;
 
     const [users, setUsers] = useState();
@@ -54,7 +54,6 @@ const Users = () => {
     };
 
     const handleSortUsers = (item) => {
-        console.log("handleSortUsers", item);
         setSortBy(item);
     };
     if (users) {
