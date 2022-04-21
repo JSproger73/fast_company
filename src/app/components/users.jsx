@@ -53,7 +53,8 @@ const Users = () => {
         setCurrentPage(padeIndex);
     };
 
-    const handleSort = (item) => {
+    const handleSortUsers = (item) => {
+        console.log("handleSortUsers", item);
         setSortBy(item);
     };
     if (users) {
@@ -95,7 +96,7 @@ const Users = () => {
                     {count > 0 && (
                         <UserTable
                             users={userCrop}
-                            onSort={handleSort}
+                            onSort={handleSortUsers}
                             selectedSort={sortBy}
                             onDelete={handleDelete}
                             onToggleBookmark={handleToggleBookMark}
