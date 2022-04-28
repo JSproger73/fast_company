@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import UserPage from '../components/userPage';
-import UserList from '../components/usersList';
-import api from '../API';
+import React /*, { useState, useEffect }*/ from "react";
+import UserPage from "../components/userPage";
+import UsersList from "../components/usersList";
+// import api from "../API";
 
 const Users = ({ match }) => {
   const userId = match.params.userId;
 
-  const [users, setUsers] = useState();
+  // const [users, setUsers] = useState();
 
-  useEffect(() => {
-    api.users.fetchAll().then((data) => setUsers(data));
-  }, []);
+  // useEffect(() => {
+  //   api.users.fetchAll().then((data) => setUsers(data));
+  // }, []);
 
   return (
     <>
       {userId ? (
-        <UserPage users={users} />
+        <UserPage id={userId} /*users={users}*/ />
       ) : (
-        <UserList users={users} setUsers={setUsers} />
+        <UsersList /*users={users}*/ />
       )}
     </>
   );

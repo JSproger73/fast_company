@@ -1,8 +1,12 @@
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
 
-const UsersList = ({ users }) => {
-  console.log('UsersList', users);
-  return <h1>UsersList</h1>;
+const UsersList = ({ id, name }) => {
+  return (
+    <Link key={id} to={`users/${id}`}>
+      <>{name}</>
+    </Link>
+  );
 };
 
 export default UsersList;

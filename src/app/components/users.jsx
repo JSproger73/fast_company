@@ -1,20 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
-import Pagination from './pagination';
-import { paginate } from '../utils/paginate';
-import api from '../API';
-import GroupList from './groupList';
-import SearchStatus from './searchStatus';
-import UserTable from './usersTable';
-import _ from 'lodash';
+import Pagination from "./pagination";
+import { paginate } from "../utils/paginate";
+import api from "../API";
+import GroupList from "./groupList";
+import SearchStatus from "./searchStatus";
+import UserTable from "./usersTable";
+import UserPage from "./userPage";
+import _ from "lodash";
 
-const Users = () => {
+const Users = ({ match }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [professions, setProfessions] = useState();
   const [selectedProf, setSelectedProf] = useState();
-  const [sortBy, setSortBy] = useState({ path: 'name', order: 'asc' });
+  const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
   const pageSize = 8;
+
+  const userId = match.params.userId;
 
   const [users, setUsers] = useState();
 
@@ -69,7 +72,9 @@ const Users = () => {
       setSelectedProf();
     };
 
-    return (
+    return userId ? (
+      <UserPage userId={userId} users={users} />
+    ) : (
       <div className="d-flex">
         {professions && (
           <div className="f-flex flex-column flex-shrink-0 p-3">
@@ -79,7 +84,7 @@ const Users = () => {
               onItemSelect={handleProfessionSelect}
             />
             <button className="btn btn-secondary mt-2" onClick={clearFilter}>
-              {''} Очистить
+              {""} Очистить
             </button>
           </div>
         )}
@@ -106,11 +111,11 @@ const Users = () => {
       </div>
     );
   }
-  return 'loading...';
+  return "loading...";
 };
 
 Users.propTypes = {
-  users: PropTypes.array,
+  users: PropTypes.array
 };
 
 export default Users;

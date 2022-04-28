@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import BookMark from "./bookmark";
 import QualitiesList from "./qualitiesList";
 import Table from "./table";
+import UsersList from "./usersList";
 
 function UsersTable({
   users,
@@ -14,7 +15,11 @@ function UsersTable({
   ...rest
 }) {
   const columns = {
-    name: { path: "name", name: "Имя" },
+    name: {
+      path: "name",
+      name: "Имя",
+      component: (user) => <UsersList name={user.name} id={user._id} />
+    },
     qualities: {
       name: "Качество",
       component: (user) => <QualitiesList qualities={user.qualities} />
