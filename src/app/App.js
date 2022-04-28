@@ -6,16 +6,16 @@ import Login from "./layouts/login";
 import Users from "./components/users";
 
 function App() {
-  return (
-    <div>
-      <NavBar />
-      <Switch>
-        <Route path="/" exact component={Main} />
-        <Route path="/login" component={Login} />
-        <Route path="/users/:userId?" component={Users} />
-      </Switch>
-    </div>
-  );
+    return (
+        <div>
+            <NavBar />
+            <Switch>
+                <Route path="/" exact component={Main} />
+                <Route path="/login" component={Login} />
+                <Route path="/users/:userId?" component={Users} />
+            </Switch>
+        </div>
+    );
 }
 
 export default App;

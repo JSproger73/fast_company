@@ -7,55 +7,58 @@ import Table from "./table";
 import UsersList from "./usersList";
 
 function UsersTable({
-  users,
-  onSort,
-  selectedSort,
-  onToggleBookMark,
-  onDelete,
-  ...rest
+    users,
+    onSort,
+    selectedSort,
+    onToggleBookMark,
+    onDelete,
+    ...rest
 }) {
-  const columns = {
-    name: {
-      path: "name",
-      name: "Имя",
-      component: (user) => <UsersList name={user.name} id={user._id} />
-    },
-    qualities: {
-      name: "Качество",
-      component: (user) => <QualitiesList qualities={user.qualities} />
-    },
-    professions: { path: "profession.name", name: "Профессия" },
-    completedMeetings: {
-      path: "completedMeetings",
-      name: "Встретился, раз"
-    },
-    rate: { path: "rate", name: "Оценка" },
-    bookmark: {
-      path: "bookmark",
-      name: "Избранное",
-      component: (user) => (
-        <BookMark
-          status={user.bookmark}
-          onClick={() => onToggleBookMark(user._id)}
-        />
-      )
-    },
-    delete: {
-      component: (user) => (
-        <button onClick={() => onDelete(user._id)} className="btn btn-danger">
-          delete
-        </button>
-      )
-    }
-  };
-  return <Table {...{ onSort, selectedSort, columns, data: users }} />;
+    const columns = {
+        name: {
+            path: "name",
+            name: "Имя",
+            component: (user) => <UsersList name={user.name} id={user._id} />
+        },
+        qualities: {
+            name: "Качество",
+            component: (user) => <QualitiesList qualities={user.qualities} />
+        },
+        professions: { path: "profession.name", name: "Профессия" },
+        completedMeetings: {
+            path: "completedMeetings",
+            name: "Встретился, раз"
+        },
+        rate: { path: "rate", name: "Оценка" },
+        bookmark: {
+            path: "bookmark",
+            name: "Избранное",
+            component: (user) => (
+                <BookMark
+                    status={user.bookmark}
+                    onClick={() => onToggleBookMark(user._id)}
+                />
+            )
+        },
+        delete: {
+            component: (user) => (
+                <button
+                    onClick={() => onDelete(user._id)}
+                    className="btn btn-danger"
+                >
+                    delete
+                </button>
+            )
+        }
+    };
+    return <Table {...{ onSort, selectedSort, columns, data: users }} />;
 }
 UsersTable.propTypes = {
-  users: PropTypes.array.isRequired,
-  onSort: PropTypes.func.isRequired,
-  selectedSort: PropTypes.object.isRequired,
-  onToggleBookMark: PropTypes.func,
-  onDelete: PropTypes.func.isRequired
+    users: PropTypes.array.isRequired,
+    onSort: PropTypes.func.isRequired,
+    selectedSort: PropTypes.object.isRequired,
+    onToggleBookMark: PropTypes.func,
+    onDelete: PropTypes.func.isRequired
 };
 
 export default UsersTable;
