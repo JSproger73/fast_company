@@ -1,26 +1,11 @@
-import React /*, { useState, useEffect }*/ from "react";
+import React from "react";
+import { useParams } from "react-router-dom";
 import UserPage from "../components/userPage";
 import UsersList from "../components/usersList";
-// import api from "../API";
-
-const Users = ({ match }) => {
-    const userId = match.params.userId;
-
-    // const [users, setUsers] = useState();
-
-    // useEffect(() => {
-    //   api.users.fetchAll().then((data) => setUsers(data));
-    // }, []);
-
-    return (
-        <>
-            {userId ? (
-                <UserPage id={userId} /*users={users}*/ />
-            ) : (
-                <UsersList /*users={users}*/ />
-            )}
-        </>
-    );
+const Users = () => {
+    const params = useParams();
+    const { userId } = params;
+    return <>{userId ? <UserPage userId={userId} /> : <UsersList />}</>;
 };
 
 export default Users;

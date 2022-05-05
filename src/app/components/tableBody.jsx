@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
 
-function TableBody({ data, columns }) {
+const TableBody = ({ data, columns }) => {
     const renderContent = (item, column) => {
         if (columns[column].component) {
             const component = columns[column].component;
@@ -24,7 +24,8 @@ function TableBody({ data, columns }) {
             ))}
         </tbody>
     );
-}
+};
+
 TableBody.propTypes = {
     data: PropTypes.array.isRequired,
     columns: PropTypes.object.isRequired
