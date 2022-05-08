@@ -12,12 +12,15 @@ const UsersList = () => {
     const [professions, setProfession] = useState();
     const [selectedProf, setSelectedProf] = useState();
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
+    const [itemSearchString, setItemSearchString] = useState("");
     const pageSize = 8;
 
     const [users, setUsers] = useState();
+
     useEffect(() => {
         api.users.fetchAll().then((data) => setUsers(data));
     }, []);
+
     const handleDelete = (userId) => {
         setUsers(users.filter((user) => user._id !== userId));
     };
@@ -40,18 +43,35 @@ const UsersList = () => {
     }, [selectedProf]);
 
     const handleProfessionSelect = (item) => {
+        setItemSearchString("");
         setSelectedProf(item);
     };
 
     const handlePageChange = (pageIndex) => {
         setCurrentPage(pageIndex);
     };
+
     const handleSort = (item) => {
         setSortBy(item);
     };
 
+    const clearFilter = () => {
+        setSelectedProf();
+    };
+
+    const handleSerchString = (item) => {
+        if (selectedProf) clearFilter();
+        setItemSearchString(item);
+    };
+
     if (users) {
-        const filteredUsers = selectedProf
+        const filteredUsers = itemSearchString
+            ? users.filter((user) =>
+                  user.name
+                      .toLowerCase()
+                      .includes(itemSearchString.toLowerCase())
+              )
+            : selectedProf
             ? users.filter(
                   (user) =>
                       JSON.stringify(user.profession) ===
@@ -66,9 +86,6 @@ const UsersList = () => {
             [sortBy.order]
         );
         const usersCrop = paginate(sortedUsers, currentPage, pageSize);
-        const clearFilter = () => {
-            setSelectedProf();
-        };
 
         return (
             <div className="d-flex">
@@ -84,12 +101,19 @@ const UsersList = () => {
                             onClick={clearFilter}
                         >
                             {" "}
-                            Очиститть
+                            Очистить
                         </button>
                     </div>
                 )}
                 <div className="d-flex flex-column">
                     <SearchStatus length={count} />
+                    <input
+                        className="form-control mt-3 mb-3"
+                        type="text"
+                        placeholder="search..."
+                        value={itemSearchString}
+                        onChange={() => handleSerchString(event.target.value)}
+                    />
                     {count > 0 && (
                         <UserTable
                             users={usersCrop}
