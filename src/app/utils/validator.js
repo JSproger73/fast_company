@@ -6,7 +6,6 @@ export function validator(data, config) {
             case "isRequired":
                 if (typeof data === "boolean") {
                     statusValidate = !data;
-                    console.log("statusValidate", statusValidate);
                 } else {
                     statusValidate = data.trim() === "";
                 }
