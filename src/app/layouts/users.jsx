@@ -9,10 +9,12 @@ const Users = () => {
     const { userId, edit } = params;
     return (
         <>
-            {edit ? (
-                <UserEditForm />
-            ) : userId ? (
-                <UserPage />
+            {userId ? (
+                edit ? (
+                    <UserEditForm />
+                ) : (
+                    <UserPage userId={userId} />
+                )
             ) : (
                 <UsersListPage />
             )}
