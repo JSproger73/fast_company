@@ -10,6 +10,7 @@ const AddCommentForm = ({ onSubmit }) => {
     const [data, setData] = useState(initialData);
     const [users, setUsers] = useState({});
     const [errors, setErrors] = useState({});
+
     const handleChange = (target) => {
         setData((prevState) => ({
             ...prevState,
@@ -28,6 +29,10 @@ const AddCommentForm = ({ onSubmit }) => {
             }
         }
     };
+
+    useEffect(() => {
+        validate();
+    }, [data]);
 
     const validate = () => {
         const errors = validator(data, validatorConfig);
