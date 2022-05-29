@@ -79,7 +79,7 @@ const users = [
     },
     {
         _id: "67rdca3eeb7f6fgeed471819",
-        name: "Шелдон Купер",
+        name: "Шелдон Купер ",
         email: "sheldoncooper@fastcompany.ru",
         sex: "male",
         profession: professions.physics,

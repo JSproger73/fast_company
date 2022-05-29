@@ -41,6 +41,9 @@ const AddCommentForm = ({ onSubmit }) => {
         setErrors(errors);
         return Object.keys(errors).length === 0;
     };
+
+    const isValid = Object.keys(errors).length === 0;
+
     useEffect(() => {
         API.users.fetchAll().then(setUsers);
     }, []);
@@ -56,6 +59,7 @@ const AddCommentForm = ({ onSubmit }) => {
         clearForm();
         setSelectErrorsValid(false);
         setTextAreaErrorsValid(false);
+        console.log(e.target);
     };
     const arrayOfUsers =
         users &&
@@ -99,7 +103,13 @@ const AddCommentForm = ({ onSubmit }) => {
                     blur={blurHandler}
                 />
                 <div className="d-flex justify-content-end">
-                    <button className="btn btn-primary">Опубликовать</button>
+                    <button
+                        type="submit"
+                        className="btn btn-primary"
+                        disabled={!isValid}
+                    >
+                        Опубликовать
+                    </button>
                 </div>
             </form>
         </div>
