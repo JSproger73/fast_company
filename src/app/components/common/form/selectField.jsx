@@ -8,19 +8,25 @@ const SelectField = ({
     defaultOption,
     options,
     error,
+    errorsValid,
+    blur,
     name
 }) => {
     const handleChange = ({ target }) => {
         onChange({ name: target.name, value: target.value });
     };
     const getInputClasses = () => {
-        return "form-select" + (error ? " is-invalid" : "");
+        return "form-select" + (errorsValid && error ? " is-invalid" : "");
     };
 
     const optionsArray =
         !Array.isArray(options) && typeof options === "object"
             ? Object.values(options)
             : options;
+
+    const handleChangeValidError = ({ target }) => {
+        blur({ name: target.name });
+    };
 
     return (
         <div className="mb-4">
@@ -33,6 +39,7 @@ const SelectField = ({
                 name={name}
                 value={value}
                 onChange={handleChange}
+                onBlur={handleChangeValidError}
             >
                 <option disabled value="">
                     {defaultOption}
@@ -44,7 +51,9 @@ const SelectField = ({
                         </option>
                     ))}
             </select>
-            {error && <div className="invalid-feedback">{error}</div>}
+            {errorsValid && error && (
+                <div className="invalid-feedback">{error}</div>
+            )}
         </div>
     );
 };
@@ -56,7 +65,9 @@ SelectField.propTypes = {
     onChange: PropTypes.func,
     error: PropTypes.string,
     options: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-    name: PropTypes.string
+    name: PropTypes.string,
+    errorsValid: PropTypes.bool,
+    blur: PropTypes.func
 };
 
 export default SelectField;

@@ -10,6 +10,8 @@ const AddCommentForm = ({ onSubmit }) => {
     const [data, setData] = useState(initialData);
     const [users, setUsers] = useState({});
     const [errors, setErrors] = useState({});
+    const [selectErrorsValid, setSelectErrorsValid] = useState(false);
+    const [textAreaErrorsValid, setTextAreaErrorsValid] = useState(false);
 
     const handleChange = (target) => {
         setData((prevState) => ({
@@ -52,6 +54,8 @@ const AddCommentForm = ({ onSubmit }) => {
         if (!isValid) return;
         onSubmit(data);
         clearForm();
+        setSelectErrorsValid(false);
+        setTextAreaErrorsValid(false);
     };
     const arrayOfUsers =
         users &&
@@ -59,6 +63,18 @@ const AddCommentForm = ({ onSubmit }) => {
             label: users[userId].name,
             value: users[userId]._id
         }));
+
+    const blurHandler = (target) => {
+        switch (target.name) {
+            case "userId":
+                setSelectErrorsValid(true);
+                break;
+            case "content":
+                setTextAreaErrorsValid(true);
+                break;
+        }
+    };
+
     return (
         <div>
             <h2>New comment</h2>
@@ -70,6 +86,8 @@ const AddCommentForm = ({ onSubmit }) => {
                     value={data.userId}
                     defaultOption="Выберите пользователя"
                     error={errors.userId}
+                    errorsValid={selectErrorsValid}
+                    blur={blurHandler}
                 />
                 <TextAreaField
                     value={data.content}
@@ -77,6 +95,8 @@ const AddCommentForm = ({ onSubmit }) => {
                     name="content"
                     label="Сообщение"
                     error={errors.content}
+                    errorsValid={textAreaErrorsValid}
+                    blur={blurHandler}
                 />
                 <div className="d-flex justify-content-end">
                     <button className="btn btn-primary">Опубликовать</button>
