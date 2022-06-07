@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-function TextField({ label, type, name, value, onChange, error }) {
+const TextField = ({ label, type, name, value, onChange, error }) => {
     const [showPassword, setShowPassword] = useState(false);
+
     const handleChange = ({ target }) => {
         onChange({ name: target.name, value: target.value });
     };
-
     const getInputClasses = () => {
         return "form-control" + (error ? " is-invalid" : "");
     };
     const toggleShowPassword = () => {
         setShowPassword((prevState) => !prevState);
     };
-
     return (
         <div className="mb-4">
             <label htmlFor={name}>{label}</label>
@@ -21,8 +20,8 @@ function TextField({ label, type, name, value, onChange, error }) {
                 <input
                     type={showPassword ? "text" : type}
                     id={name}
-                    value={value}
                     name={name}
+                    value={value}
                     onChange={handleChange}
                     className={getInputClasses()}
                 />
@@ -39,12 +38,11 @@ function TextField({ label, type, name, value, onChange, error }) {
                         ></i>
                     </button>
                 )}
-
                 {error && <div className="invalid-feedback">{error}</div>}
             </div>
         </div>
     );
-}
+};
 TextField.defaultProps = {
     type: "text"
 };

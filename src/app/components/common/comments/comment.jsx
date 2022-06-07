@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { displayDate } from "../../../utils/dispalyDate";
-import API from "../../../API";
+import { displayDate } from "../../../utils/displayDate";
+import API from "../../../api";
 const Comment = ({
     content,
     created_at: created,

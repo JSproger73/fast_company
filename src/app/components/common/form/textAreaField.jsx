@@ -1,23 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const TextAreaField = ({
-    label,
-    name,
-    value,
-    onChange,
-    error,
-    errorsValid,
-    blur
-}) => {
+const TextAreaField = ({ label, name, value, onChange, error }) => {
     const handleChange = ({ target }) => {
         onChange({ name: target.name, value: target.value });
     };
     const getInputClasses = () => {
-        return "form-control" + (errorsValid && error ? " is-invalid" : "");
-    };
-    const handleChangeValidError = ({ target }) => {
-        blur({ name: target.name });
+        return "form-control" + (error ? " is-invalid" : "");
     };
 
     return (
@@ -30,12 +19,9 @@ const TextAreaField = ({
                     value={value}
                     onChange={handleChange}
                     className={getInputClasses()}
-                    onBlur={handleChangeValidError}
                 />
 
-                {errorsValid && error && (
-                    <div className="invalid-feedback ">{error}</div>
-                )}
+                {error && <div className="invalid-feedback ">{error}</div>}
             </div>
         </div>
     );
@@ -49,9 +35,7 @@ TextAreaField.propTypes = {
     name: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func,
-    error: PropTypes.string,
-    errorsValid: PropTypes.bool,
-    blur: PropTypes.func
+    error: PropTypes.string
 };
 
 export default TextAreaField;

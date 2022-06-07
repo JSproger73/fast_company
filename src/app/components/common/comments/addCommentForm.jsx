@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import API from "../../../API";
+import API from "../../../api";
 import SelectField from "../form/selectField";
 import TextAreaField from "../form/textAreaField";
 import { validator } from "../../../utils/validator";
@@ -10,9 +10,6 @@ const AddCommentForm = ({ onSubmit }) => {
     const [data, setData] = useState(initialData);
     const [users, setUsers] = useState({});
     const [errors, setErrors] = useState({});
-    const [selectErrorsValid, setSelectErrorsValid] = useState(false);
-    const [textAreaErrorsValid, setTextAreaErrorsValid] = useState(false);
-
     const handleChange = (target) => {
         setData((prevState) => ({
             ...prevState,
@@ -32,18 +29,11 @@ const AddCommentForm = ({ onSubmit }) => {
         }
     };
 
-    useEffect(() => {
-        validate();
-    }, [data]);
-
     const validate = () => {
         const errors = validator(data, validatorConfig);
         setErrors(errors);
         return Object.keys(errors).length === 0;
     };
-
-    const isValid = Object.keys(errors).length === 0;
-
     useEffect(() => {
         API.users.fetchAll().then(setUsers);
     }, []);
@@ -57,9 +47,6 @@ const AddCommentForm = ({ onSubmit }) => {
         if (!isValid) return;
         onSubmit(data);
         clearForm();
-        setSelectErrorsValid(false);
-        setTextAreaErrorsValid(false);
-        console.log(e.target);
     };
     const arrayOfUsers =
         users &&
@@ -67,18 +54,6 @@ const AddCommentForm = ({ onSubmit }) => {
             label: users[userId].name,
             value: users[userId]._id
         }));
-
-    const blurHandler = (target) => {
-        switch (target.name) {
-            case "userId":
-                setSelectErrorsValid(true);
-                break;
-            case "content":
-                setTextAreaErrorsValid(true);
-                break;
-        }
-    };
-
     return (
         <div>
             <h2>New comment</h2>
@@ -90,8 +65,6 @@ const AddCommentForm = ({ onSubmit }) => {
                     value={data.userId}
                     defaultOption="Выберите пользователя"
                     error={errors.userId}
-                    errorsValid={selectErrorsValid}
-                    blur={blurHandler}
                 />
                 <TextAreaField
                     value={data.content}
@@ -99,17 +72,9 @@ const AddCommentForm = ({ onSubmit }) => {
                     name="content"
                     label="Сообщение"
                     error={errors.content}
-                    errorsValid={textAreaErrorsValid}
-                    blur={blurHandler}
                 />
                 <div className="d-flex justify-content-end">
-                    <button
-                        type="submit"
-                        className="btn btn-primary"
-                        disabled={!isValid}
-                    >
-                        Опубликовать
-                    </button>
+                    <button className="btn btn-primary">Опубликовать</button>
                 </div>
             </form>
         </div>
