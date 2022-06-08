@@ -13,7 +13,6 @@ export const QualityProvider = ({ children }) => {
     const [isLoading, setLoading] = useState(true);
     const [qualities, setQualities] = useState([]);
     const [error, setError] = useState(null);
-    console.log("Качества", qualities);
     useEffect(() => {
         if (error !== null) {
             toast(error);
@@ -31,7 +30,6 @@ export const QualityProvider = ({ children }) => {
     }
 
     function getQuality(id) {
-        console.log(id);
         return qualities.find((q) => q._id === id);
     }
 
