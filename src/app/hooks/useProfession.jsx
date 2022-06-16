@@ -41,8 +41,6 @@ export const ProfessionProvider = ({ children }) => {
         }
     }
 
-    console.log(professions);
-
     return (
         <ProfessionContext.Provider
             value={{ isLoading, professions, getProfession }}

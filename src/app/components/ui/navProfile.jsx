@@ -15,7 +15,7 @@ function NavProfile() {
                     src={currentUser.image}
                     alt=""
                     height="40"
-                    className="img-responsive rounded-circle"
+                    className="img-responsive rounded-circle border border-primary"
                 />
             </div>
             <div className={"w-100 dropdown-menu" + (isOpen ? " show" : "")}>
