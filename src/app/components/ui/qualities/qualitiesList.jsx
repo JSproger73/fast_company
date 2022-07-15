@@ -15,15 +15,14 @@ const QualitiesList = ({ qualities }) => {
     useEffect(() => {
         dispatch(loadQualitiesList());
     }, []);
-    if (!isLoading) {
-        return (
-            <>
-                {qualitiesList.map((qual) => (
-                    <Quality key={qual._id} {...qual} />
-                ))}
-            </>
-        );
-    } else return "Loading...";
+    if (isLoading) return "Loading...";
+    return (
+        <>
+            {qualitiesList.map((qual) => (
+                <Quality key={qual._id} {...qual} />
+            ))}
+        </>
+    );
 };
 
 QualitiesList.propTypes = {

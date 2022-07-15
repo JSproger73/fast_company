@@ -20,6 +20,7 @@ const commentService = {
     },
     removeComment: async (commentId) => {
         const { data } = await httpService.delete(commentEndpoint + commentId);
+        console.log("dataservice", data);
         return data;
     }
 };

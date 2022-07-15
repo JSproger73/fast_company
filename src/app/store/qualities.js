@@ -30,6 +30,7 @@ const { qualitiesRequested, qualitiesReceived, qualitiesRequestFailed } =
     actions;
 
 function isOutdated(date) {
+    // функция проверки актуальности данных
     if (Date.now() - date > 10 * 60 * 1000) {
         return true;
     }
@@ -39,6 +40,7 @@ function isOutdated(date) {
 export const loadQualitiesList = () => async (dispatch, getState) => {
     const { lastFetch } = getState().qualities;
     if (isOutdated(lastFetch)) {
+        // если данные устарели то выполняем запрос
         dispatch(qualitiesRequested());
         try {
             const { content } = await qualityService.get();
